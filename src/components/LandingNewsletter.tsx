@@ -124,7 +124,7 @@ const LandingNewsletter = () => {
 			<div class="py-2 text-center">
 				{error && (
 					<p class="text-red-600 py-2 font-bold text-base">
-            Algo no ha ido bien. Es posible que ya estés registrado
+            Parece que ya estás registrado en AprendeJavaScript.dev.<br />¡No tienes que hacer nada más!
 					</p>
 				)}
 				{completed &&
