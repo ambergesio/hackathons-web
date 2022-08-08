@@ -92,6 +92,7 @@ const LandingNewsletter = () => {
 	return (
 		<>
 			<form
+				id="newsletter"
 				method="post"
 				data-code=""
 				target="_blank"
