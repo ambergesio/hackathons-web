@@ -1,5 +1,5 @@
 import { h } from 'preact'
-import { useState } from 'preact/hooks'
+import { useEffect, useState } from 'preact/hooks'
 
 const API_BUTTONDOWN = '84500c85-7b82-455d-b1a8-abc250a62368'
 
@@ -89,10 +89,20 @@ const LandingNewsletter = () => {
 			})
 	}
 
+	useEffect(() => {
+		const handleHashChange = () => {
+			if (window.location.hash === '#newsletter') {
+				document.getElementById('newsletter').classList.add('border-blue-200 shadow-lg shadow-blue-100 rounded-lg')
+			}
+		}
+
+		window.addEventListener('hashchange', handleHashChange)
+		return () => window.removeEventListener('hashchange', handleHashChange)
+	}, [])
+
 	return (
 		<>
 			<form
-				id="newsletter"
 				method="post"
 				data-code=""
 				target="_blank"
