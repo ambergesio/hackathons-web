@@ -1,6 +1,8 @@
 import { h } from 'preact'
 import { useState } from 'preact/hooks'
 
+const API_BUTTONDOWN = '84500c85-7b82-455d-b1a8-abc250a62368'
+
 const Loading = () => (
 	<svg
 		class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
@@ -25,6 +27,38 @@ const Loading = () => (
 	</svg>
 )
 
+const addNewSubscriber = ({ email }) => {
+	const data = {
+		email,
+		referrer_url: 'https://retos.dev',
+		tags: ['retos']
+	}
+
+	return fetch('https://api.buttondown.email/v1/subscribers', {
+		method: 'POST',
+		headers: {
+			Authorization: `Token ${API_BUTTONDOWN}`,
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(data)
+	})
+		.then((res) => {
+			if (!res.ok) {
+				console.error(res)
+
+				return new Response(
+					JSON.stringify({ message: 'ko' }),
+					{ status: 400 }
+				)
+			}
+
+			return new Response(
+				JSON.stringify({ message: 'ok' }),
+				{ status: 200 }
+			)
+		})
+}
+
 const LandingNewsletter = () => {
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState(false)
@@ -39,13 +73,7 @@ const LandingNewsletter = () => {
 		const formData = new FormData(event.target as HTMLFormElement)
 		const email = formData.get('email')
 
-		fetch('/api/new-subscriber', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({ email })
-		})
+		addNewSubscriber({ email })
 			.then((res) => {
 				if (!res.ok) throw new Error('something bad happened')
 				setCompleted(true)
@@ -93,7 +121,7 @@ const LandingNewsletter = () => {
 				<input type="hidden" name="ml-submit" value="1"></input>
 				<input type="hidden" name="anticsrf" value="true"></input>
 			</form>
-			<div class="py-2">
+			<div class="py-2 text-center">
 				{error && (
 					<p class="text-red-600 py-2 font-bold text-base">
             Algo no ha ido bien. Es posible que ya estés registrado
@@ -102,7 +130,7 @@ const LandingNewsletter = () => {
 				{completed &&
 					(
 						<p class="text-green-600 py-2 font-bold text-base">
-							¡Te has suscrito con éxito!
+							¡Te has suscrito con éxito! Revisa tu bandeja y confirma tu dirección de correo electrónico.
 						</p>
 					)}
 			</div>

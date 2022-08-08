@@ -1,5 +1,6 @@
 ---
 export interface Props {
+	href: string
   variant?: 'primary' | 'secondary'
 }
 
@@ -8,10 +9,12 @@ const BUTTON_COLORS = {
 	secondary: 'text-gray-600 bg-gray-100 hover:bg-gray-200 hover:text-black'
 }
 
-const { variant = 'primary' } = Astro.props as Props
+const DEFAULT_CLASSES = 'inline-block w-full px-5 py-3 mb-3 mr-1 text-xl font-semibold no-underline align-middle border border-solid rounded-full cursor-pointer select-none sm:mb-0 sm:w-auto hover:scale-110 transition-all'
+
+const { variant = 'primary', href = '#' } = Astro.props as Props
 const classes = BUTTON_COLORS[variant] || BUTTON_COLORS.primary
 ---
 
-<button class={`inline-block w-full px-5 py-3 mb-3 mr-1 text-xl font-semibold no-underline align-middle border border-solid rounded-full cursor-pointer select-none sm:mb-0 sm:w-auto hover:scale-110 transition-all ${classes}`}>
+<a href={href} class={`${DEFAULT_CLASSES} ${classes}`}>
 	<slot></slot>
-</button>
+</a>
