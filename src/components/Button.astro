@@ -12,6 +12,6 @@ const { variant = "primary" } = Astro.props as Props
 const classes = BUTTON_COLORS[variant] || BUTTON_COLORS.primary
 --- 
 
-<button class={`inline-block w-full px-5 py-3 mb-3 mr-1 text-base font-semibold no-underline align-middle border border-transparent border-solid rounded-full cursor-pointer select-none sm:mb-0 sm:w-auto ${classes}`}>
+<button class={`inline-block w-full px-5 py-3 mb-3 mr-1 text-xl font-semibold no-underline align-middle border border-solid rounded-full cursor-pointer select-none sm:mb-0 sm:w-auto hover:scale-110 transition-all ${classes}`}>
   <slot></slot>
 </button>

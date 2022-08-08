@@ -6,7 +6,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "phoenix": "rm -rf ./node_modules && npm install --no-audit --no-fund",
+    "phoenix": "rm -rf package-lock.json ./node_modules && npm install --no-audit --no-fund",
     "preview": "astro preview",
     "lint": "standard"
   },
